@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Page</title>
+</head>
+<body>
+{% block content %}
+<h1>Add Page</h1>
+<h3>Add a team member</h3>
+<p class="text-muted mb-0">Set email, location and role.</p>
+    {% if all_users %}
+    <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'add' %}">
+        {% csrf_token %}
+        <hr>
+        <h5>Info</h5>
+        <input class="form-control mr-sm-2" style="margin-bottom: 10px" type="search" placeholder="first name" name="first_name">
+        <input class="form-control mr-sm-2" style="margin-bottom: 10px" type="search" placeholder="last name" name="last_name">
+        <input class="form-control mr-sm-2" style="margin-bottom: 10px" type="search" placeholder="email" name="email">
+        <input class="form-control mr-sm-2" style="margin-bottom: 10px" type="search" placeholder="phone" name="phone">
+        <h5>Role</h5>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="role" value="True" id="flexRadioDefault2" checked/>
+            <label class="form-check-label" for="flexRadioDefault2"> Regular - Can't delete members </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="role" value="False" id="flexRadioDefault1"/>
+            <label class="form-check-label" for="flexRadioDefault1"> Admin - Can delete members </label>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary btn-lg">Save</button>
+    </form>
+    {% endif %}
+{% endblock %}
+</body>
+</html>

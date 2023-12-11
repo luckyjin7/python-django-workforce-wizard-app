@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>  
+    <title>List Page</title>
+</head>
+<body>
+{% block content %}
+    <h1>List Page</h1>
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-warning d-flex align-items-center" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+        
+            <a href="{% url 'add' %}" style="color: DodgerBlue" role="button"><i class="fas fa-plus"></i>Add</a>
+            <h3>Team members</h3>
+            {% if all_users %}
+                <p class="small text-muted mb-1">You have {{ all_users.count }} team members.</p>
+                <ul class="list-group list-group-light mb-4">
+                    {% for user in all_users %}
+                    <a href="{% url 'edit' user.id %}" class="list-group-item list-group-item-action" aria-current="true">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <img class="rounded-circle" 
+                                    src="{% static 'images/defaultuser.jpeg' %}" 
+                                    style="width: 100px; border-radius: 50%;"
+                                    alt="generic">
+                                <div class="ms-3">
+                                    <div class="fw-bold mb-1">{{ user.first_name }} {{ user.last_name }}
+                                        {% if user.role %}
+                                        {% else %} <div>(admin)</div>
+                                        {% endif %}
+                                    </div>
+                                    <p class="small text-muted mb-1">{{ user.phone }}</p>
+                                    <p class="small text-muted mb-1">{{ user.email }}</p>
+                                </div>
+                            </div>
+                        </li>
+                    </a>
+                    {% endfor %}  
+                </ul>
+            {% endif %}
+{% endblock %}
+</body>
+</html>
